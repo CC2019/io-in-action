@@ -10,13 +10,13 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @author wt
  * @create 2019-03-20 上午9:46
  */
-public class NettyServer {
+public class Server {
     public static void main(String[] args) {
         // bossGroup会接收连接,把连接发送给workGroup, 让workGroup这个线程组来完成处理
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        try {
 
+        try {
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
                 .childHandler(new ServerInitializer());
