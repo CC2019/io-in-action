@@ -1,4 +1,4 @@
-package com.enda.netty.sample;
+package com.enda.netty.monitor;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -7,7 +7,10 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.CharsetUtil;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -20,13 +23,8 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel channel) throws Exception {
         ChannelPipeline pipeline = channel.pipeline();
 
-//        pipeline.addLast("httpServerCodec", new HttpServerCodec());
-//        pipeline.addLast("HttpServerHandler", new HttpServerHandler());
-
-        pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-        pipeline.addLast(new LengthFieldPrepender(4));
-        pipeline.addLast(new StringDecoder(CharsetUtil.UTF_8));
-        pipeline.addLast(new StringEncoder(CharsetUtil.UTF_8));
+        // 空闲检测的handler
+        pipeline.addLast(new IdleStateHandler(5, 7, 10, TimeUnit.SECONDS));
         pipeline.addLast("myHandler", new ServerHandler());
     }
 

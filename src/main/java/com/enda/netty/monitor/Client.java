@@ -1,4 +1,4 @@
-package com.enda.netty.sample;
+package com.enda.netty.monitor;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

@@ -1,4 +1,4 @@
-package com.enda.netty.sample;
+package com.enda.netty.monitor;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
